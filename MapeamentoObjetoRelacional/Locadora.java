@@ -4,7 +4,6 @@ public class Locadora {
     public static void main(String[] args) {
         Locadora loc=new Locadora();
         loc.menuPrincipal();
-
     }
 
     public void menuPrincipal(){
