@@ -11,7 +11,7 @@ public class DaoVeiculo {
     private void conectar(){
         try {
             this.conn=GerenciadorConexao.pegarConexao();
-            st=conn.createStatement();
+            this.st=this.conn.createStatement();
         } catch (ClassNotFoundException e1) {
             System.out.println(e1.getMessage());
         } catch (SQLException e2) {
@@ -21,8 +21,8 @@ public class DaoVeiculo {
 
     private void desconectar(){
         try {
-            st.close();
-            conn.close();            
+            this.st.close();
+            this.conn.close();            
         } catch (SQLException e2) {
             System.out.println(e2.getMessage());
         }

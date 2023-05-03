@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class GerenciadorVeiculo {
+public class GerenciadorCliente {
     Scanner scanner;
-    DaoVeiculo daoVeiculo;
+    DaoCliente daoCliente;
 
-    public GerenciadorVeiculo(){
+    public GerenciadorCliente(){
         scanner=new Scanner(System.in);
-        daoVeiculo=new DaoVeiculo();
+        daoCliente=new DaoCliente();
     }
 
     public void menu(){
@@ -15,7 +15,7 @@ public class GerenciadorVeiculo {
 
         while(opcao!=0){
             System.out.println("\n------------------------------------------------------------------");
-            System.out.println("GERENCIAMENTO DE VEICULOS");
+            System.out.println("GERENCIAMENTO DE CLIENTES");
             System.out.println("[1] Cadastrar");
             System.out.println("[2] Consultar");
             System.out.println("[3] Alterar");
@@ -56,21 +56,21 @@ public class GerenciadorVeiculo {
     }
     
     public void cadastrar(){
-        Veiculo v=new Veiculo();
+        Cliente c=new Cliente();
         System.out.println("----------------------");
-        System.out.println("Cadastro de veiculos");
-        System.out.println("Marca");
-        v.setMarca(scanner.nextLine());
-        System.out.println("Modelo");
-        v.setModelo(scanner.nextLine());
-        System.out.println("Chassi");
-        v.setChassi(scanner.nextLine());
-        System.out.println("Ano");
-        v.setAno(Integer.parseInt(scanner.nextLine()));
+        System.out.println("Cadastro de clientes");
+        System.out.println("Nome");
+        c.setNome(scanner.nextLine());
+        System.out.println("CPF");
+        c.setCpf(scanner.nextLine());
+        System.out.println("RG");
+        c.setRg(scanner.nextLine());
+        System.out.println("Email");
+        c.setEmail(scanner.nextLine());
 
 
         //passa o objeto para a camada model
-        boolean inserido=daoVeiculo.inserir(v);
+        boolean inserido=daoCliente.inserir(c);
         if(inserido){
             System.out.println("Inserido com sucesso.");
         }
@@ -78,41 +78,41 @@ public class GerenciadorVeiculo {
 
     public void alterar(){
         System.out.println("----------------------");
-        System.out.println("alteração de veiculo");
+        System.out.println("alteração de cliente");
 
         System.out.println("codigo: ");
         int codigo=Integer.parseInt(scanner.nextLine());
-        Veiculo v=daoVeiculo.buscarUm(codigo);
+        Cliente c=daoCliente.buscarUm(codigo);
 
-        if(v!=null){
-            System.out.println("dados do veiculo:");
-            System.out.println("Codigo: "+v.getCodigo());
-            System.out.println("Marca: "+v.getMarca());
+        if(c!=null){
+            System.out.println("dados do cliente:");
+            System.out.println("Codigo: "+c.getCodigo());
+            System.out.println("Nome: "+c.getNome());
 
-            String marca=scanner.nextLine();
-            if(!marca.isEmpty()){
-                v.setMarca(marca);
+            String nome=scanner.nextLine();
+            if(!nome.isEmpty()){
+                c.setNome(nome);
             }
-            System.out.println("Modelo: "+v.getModelo());
+            System.out.println("CPF: "+c.getCpf());
 
-            String modelo=scanner.nextLine();
-            if(!modelo.isEmpty()){
-                v.setModelo(modelo);
+            String cpf=scanner.nextLine();
+            if(!cpf.isEmpty()){
+                c.setCpf(cpf);
             }
-            System.out.println("Chassi: "+v.getChassi());
+            System.out.println("RG: "+c.getRg());
 
-            String chassi=scanner.nextLine();
-            if(!chassi.isEmpty()){
-                v.setChassi(chassi);
+            String rg=scanner.nextLine();
+            if(!rg.isEmpty()){
+                c.setRg(rg);
             }
-            System.out.println("Ano: "+v.getAno());
+            System.out.println("Email: "+c.getEmail());
 
-            String ano=scanner.nextLine();
-            if(!ano.isEmpty()){
-                v.setAno(Integer.parseInt(ano));
+            String email=scanner.nextLine();
+            if(!email.isEmpty()){
+                c.setEmail(email);
             }
 
-            int qtdeAlterado=daoVeiculo.alterar(v);
+            int qtdeAlterado=daoCliente.alterar(c);
             if(qtdeAlterado>0){
                 System.out.println("Atualizado com sucesso.");
             }
@@ -123,27 +123,27 @@ public class GerenciadorVeiculo {
 
 
         //passa o objeto para a camada model
-        boolean inserido=daoVeiculo.inserir(v);
+        boolean inserido=daoCliente.inserir(c);
         if(inserido){
             System.out.println("Inserido com sucesso.");
         }
     }
 
     public void listarTodos(){
-        ArrayList<Veiculo> veiculos=daoVeiculo.buscarTodos();
+        ArrayList<Cliente> clientes=daoCliente.buscarTodos();
         System.out.println("======================");
-        System.out.println("Veiculos cadastrados");
-        for(Veiculo v:veiculos){
-            System.out.println(("codigo: ")+v.getCodigo()+(", marca: ")+v.getMarca()+(", modelo: ")+v.getModelo()+(", chassi: ")+v.getChassi()+(", ano: ")+v.getAno());
+        System.out.println("Clientes cadastrados");
+        for(Cliente c:clientes){
+            System.out.println(("codigo: ")+c.getCodigo()+(", nome: ")+c.getNome()+(", CPF: ")+c.getCpf()+(", rg: ")+c.getRg()+(", email: ")+c.getEmail());
         }
     }
 
     public void excluir(){
         System.out.println("======================");
-        System.out.println("Exclusao de veiculo");
+        System.out.println("Exclusao de cliente");
         System.out.println("codigo: ");
         int codigo=Integer.parseInt(scanner.nextLine());
-        int qtde=daoVeiculo.excluir(codigo);
+        int qtde=daoCliente.excluir(codigo);
         if(qtde>0){
             System.out.println("Excluido com sucesso");
         }else{
@@ -153,12 +153,12 @@ public class GerenciadorVeiculo {
 
     public void consultar(){
         System.out.println("======================");
-        System.out.println("Consultar veiculo");
+        System.out.println("Consultar cliente");
         System.out.println("codigo: ");
         int codigo=Integer.parseInt(scanner.nextLine());
-        Veiculo v=daoVeiculo.buscarUm(codigo);
-        if(v!=null){
-            System.out.println(("codigo: ")+v.getCodigo()+(", marca: ")+v.getMarca()+(", modelo: ")+v.getModelo()+(", chassi: ")+v.getChassi()+(", ano: ")+v.getAno());            
+        Cliente c=daoCliente.buscarUm(codigo);
+        if(c!=null){
+            System.out.println(("codigo: ")+c.getCodigo()+(", nome: ")+c.getNome()+(", CPF: ")+c.getCpf()+(", rg: ")+c.getRg()+(", email: ")+c.getEmail());
         }else{
             System.out.println("Nao encontrado...");
         }
